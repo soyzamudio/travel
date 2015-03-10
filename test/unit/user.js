@@ -37,8 +37,6 @@ describe('User Model', function() {
 
     it('should NOT register a user - duplicate email', function(done) {
       User.register({email:'bob@aol.com', password:'123'}, function(err, user) {
-        console.log('\n\nError', err);
-        console.log('\n\nUser', user);
         expect(err).to.be.ok;
         expect(user).to.not.be.ok;
         done();
@@ -81,6 +79,34 @@ describe('User Model', function() {
         expect(user).to.not.be.ok;
         done();
       });
+    });
+  });
+
+  describe('.create', function() {
+    it('should create a user from social login', function(done) {
+      User.create('facebook', {facebook:'1419476940', displayName: 'Jose Zamudio', photoUrl: 'https://graph.facebook.com/1419476940/picture?type=large'}, function(err, user) {
+        expect(err).to.not.be.ok;
+        expect(user).to.be.ok;
+        done();
+      });
+    });
+
+    it('should find a user from social login', function(done) {
+      User.create('facebook', {facebook:'12345678', displayName: 'Bob Dylan', photoUrl: 'http://photourl.com'}, function(err, user) {
+        expect(err).to.not.be.ok;
+        expect(user.displayName).to.equal('Bob Dylan');
+        expect(user).to.be.ok;
+        done();
+      });
+    });
+  });
+
+  describe('#token', function() {
+    it('should create a user token', function(done) {
+      var user = new User({facebook:'1419476940', displayName: 'Jose Zamudio', photoUrl: 'https://graph.facebook.com/1419476940/picture?type=large'});
+      var token = user.token();
+      expect(token).to.be.ok;
+      done();
     });
   });
 });
