@@ -81,25 +81,36 @@ userSchema.statics.linkedin = function(payload, cb) {
   });
 };
 
-// userSchema.statics.twitter = function(payload, cb) {
-//   let requestTokenUrl = 'https://api.twitter.com/oauth/request_token';
-//   let accessTokenUrl = 'https://api.twitter.com/oauth/access_token';
-//   let authenticateUrl = 'https://api.twitter.com/oauth/authenticate';
-//   let requestTokenOauth = {
-//       consumer_key: payload.TWITTER_KEY,
-//       consumer_secret: payload.TWITTER_SECRET,
-//       callback: payload.TWITTER_CALLBACK
-//     };
-//
-//   Request.psot({url:  requestTokenUrl, oauth: requestTokenOauth}, (err, response, accessToken) => {
-//     console.log(accessToken);
-//     // let oauthToken = qs.parse(accessToken);
-//     // let params = qs.stringify({
-//     //   oauth_token: oauthToken.oauth_token
-//     // });
-//
-//   });
-// };
+userSchema.statics.preTwitter = function(cb){
+  let requestTokenUrl = 'https://api.twitter.com/oauth/request_token';
+  let authenticateUrl = 'https://api.twitter.com/oauth/authenticate';
+  let requestTokenOauth = {
+    consumer_key: process.env.TWITTER_KEY,
+    consumer_secret: process.env.TWITTER_SECRET,
+    callback: 'http://127.0.0.1:3333/auth/twitter'
+  };
+
+    Request.post({url:requestTokenUrl, oauth:requestTokenOauth}, (err, response, body)=>{
+      let oauthToken = qs.parse(body);
+      let params = qs.stringify({oauth_token:oauthToken.oauth_token});
+      cb(authenticateUrl + '?' + params);
+    });
+};
+
+userSchema.statics.twitter = function(query, cb){
+  let accessTokenUrl = 'https://api.twitter.com/oauth/access_token';
+  let accessTokenOauth = {
+    consumer_key: process.env.TWITTER_KEY,
+    consumer_secret: process.env.TWITTER_SECRET,
+    token: query.oauth_token,
+    verifier: query.oauth_verifier
+  };
+
+  Request.post({url:accessTokenUrl, oauth:accessTokenOauth}, (err, response, profile)=>{
+    profile = qs.parse(profile);
+    cb({twitter:profile.user_id, displayName:profile.screen_name});
+  });
+};
 
 userSchema.statics.create = function(provider, profile, cb) {
   let query = {};

@@ -1,3 +1,5 @@
+/* jshint camelcase:false */
+
 'use strict';
 
 let User = require('../../models/user');
@@ -5,12 +7,15 @@ let User = require('../../models/user');
 module.exports = {
   auth: false,
   handler: function(request, reply) {
-    User.twitter(request.payload, profile => {
-      User.create('twitter', profile, (err, user) => {
-        console.log(user);
-        // let token = user.token();
-        // reply({token:token, user:user});
+    if(!request.query.oauth_token || !request.query.oauth_verifier){
+      User.preTwitter(url=>reply.redirect(url));
+    }else{
+      User.twitter(request.query, profile=>{
+        User.create('twitter', profile, (err, user)=>{
+          let token = user.token();
+          reply({token:token, user:user});
+        });
       });
-    });
+    }
   }
 };

@@ -11,5 +11,5 @@ module.exports = [
   {method: 'post', path: '/auth/github', config: require('../routes/users/github')},
   {method: 'post', path: '/auth/facebook', config: require('../routes/users/facebook')},
   {method: 'post', path: '/auth/linkedin', config: require('../routes/users/linkedin')},
-  {method: 'post', path: '/auth/twitter', config: require('../routes/users/twitter')}
+  {method: 'get', path: '/auth/twitter', config: require('../routes/users/twitter')}
 ];
