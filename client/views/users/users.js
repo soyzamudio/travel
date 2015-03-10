@@ -1,11 +1,16 @@
 'use strict';
 
 angular.module('angular-prototype')
-  .controller('UsersCtrl', ['$rootScope', '$scope', '$state', '$auth', 'User', function($rootScope, $scope, $state, $auth, User){
+  .controller('UsersCtrl', ['$rootScope', '$scope', '$state', '$window', '$auth', 'User', function($rootScope, $scope, $state, $window, $auth, User){
     $scope.name = _.capitalize($state.current.name);
 
     $scope.authenticate = function(provider) {
-      $auth.authenticate(provider);
+      $auth.authenticate(provider)
+      .then(response => {
+        $window.localStorage.user = JSON.stringify(response.data.user);
+        $rootScope.user = response.data.user;
+        $state.go('home');
+      });
     };
 
     $scope.submit = function(user){
