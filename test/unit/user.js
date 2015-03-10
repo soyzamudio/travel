@@ -2,6 +2,8 @@
 
 'use strict';
 
+require('babel/register');
+
 var User = require('../../server/models/user');
 var expect = require('chai').expect;
 var Lab = require('lab');
@@ -35,6 +37,8 @@ describe('User Model', function() {
 
     it('should NOT register a user - duplicate email', function(done) {
       User.register({email:'bob@aol.com', password:'123'}, function(err, user) {
+        console.log('\n\nError', err);
+        console.log('\n\nUser', user);
         expect(err).to.be.ok;
         expect(user).to.not.be.ok;
         done();

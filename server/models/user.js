@@ -11,6 +11,8 @@ let moment = require('moment');
 let User;
 
 let userSchema = mongoose.Schema({
+  email:       {type: String, unique: true, lowercase: true},
+  password:    {type: String, select: false },
   displayName: String,
   photoUrl:    String,
   github:      String,
@@ -133,17 +135,13 @@ userSchema.methods.token = function() {
 };
 
 userSchema.statics.register = function(o, cb){
-  User.findOne({email:o.email}, function(err, user){
-    if(user){return cb(true);}
-
-    user = new User(o);
-    user.password = bcrypt.hashSync(o.password, 8);
-    user.save(cb);
-  });
+  let user = new User(o);
+  user.password = bcrypt.hashSync(o.password, 8);
+  user.save(cb);
 };
 
 userSchema.statics.authenticate = function(o, cb){
-  User.findOne({email:o.email}, function(err, user){
+  User.findOne({email:o.email}, '+password', function(err, user){
     if (!user) {return cb(true);}
 
     let isGood = bcrypt.compareSync(o.password, user.password);
