@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('angular-prototype', ['ui.router', 'ngMessages'])
-  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+angular.module('angular-prototype', ['ui.router', 'ngMessages', 'satellizer'])
+  .config(['$stateProvider', '$urlRouterProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $authProvider){
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
@@ -11,6 +11,12 @@ angular.module('angular-prototype', ['ui.router', 'ngMessages'])
 
       .state('register', {url:'/register', templateUrl:'/views/users/users.html', controller:'UsersCtrl'})
       .state('login', {url:'/login', templateUrl:'/views/users/users.html', controller:'UsersCtrl'});
+
+    $authProvider.github({ clientId: '0a24748ef0db0e815151' });
+    $authProvider.facebook({ clientId: '469311433222452' });
+    $authProvider.linkedin({ clientId: '75yrdmxns6b39p' });
+    $authProvider.twitter({ url: '/auth/twitter' });
+
   }])
   .run(['$rootScope', 'User', function($rootScope, User){
     User.status().then(function(response){

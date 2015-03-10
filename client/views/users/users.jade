@@ -17,4 +17,22 @@ h1 {{name}}
         input#password1.form-control(type='password', name='password', ng-model='user.password')
       .form-group
         button.btn.btn-default(type='submit', ng-click='submit(user)') {{name}}
+      .form-group
+        a.btn.btn-github(ng-click='authenticate("github")')
+          i.fa.fa-github: &nbsp; Sign in with GitHub
+      .form-group
+        button.btn.btn-facebook(ng-click='authenticate("facebook")')
+          i.fa.fa-facebook: &nbsp; Sign in with Facebook
+      .form-group
+        button.btn.btn-linkedin(ng-click='authenticate("linkedin")')
+          i.fa.fa-linkedin: &nbsp; Sign in with LinkedIn
+      .form-group
+        button.btn.btn-google-plus(ng-click='authenticate("google")')
+          i.fa.fa-google-plus: &nbsp; Sign in with Google+
+      .form-group
+        button.btn.btn-twitter(ng-click='authenticate("twitter")')
+          i.fa.fa-twitter: &nbsp; Sign in with Twitter
+      .form-group
+        button.btn.btn-instagram(ng-click='authenticate("instagram")')
+          i.fa.fa-instagram: &nbsp; Sign in with Instagram
   .col-xs-8
