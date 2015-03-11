@@ -9,6 +9,11 @@ angular.module('angular-prototype', ['ui.router', 'ngMessages', 'satellizer'])
       .state('faq', {url:'/faq', templateUrl:'/views/general/faq.html'})
       .state('contact', {url:'/contact', templateUrl:'/views/general/contact.html'})
 
+      .state('vacations', {url: '/vacations', templateUrl: '/views/vacations/vacations.html', abstract: true})
+      .state('vacations.new', {url: '/new', templateUrl: '/views/vacations/vacations_new.html', controller:'VacationsNewCtrl'})
+      .state('vacations.list', {url: '', templateUrl: '/views/vacations/vacations_list.html', controller:'VacationsListCtrl'})
+      .state('vacations.show', {url: '/{vacationId:[0-9a-f]{24}}', templateUrl: '/views/vacations/vacations_show.html', controller:'VacationsShowCtrl'})
+
       .state('register', {url:'/register', templateUrl:'/views/users/users.html', controller:'UsersCtrl'})
       .state('login', {url:'/login', templateUrl:'/views/users/users.html', controller:'UsersCtrl'});
 

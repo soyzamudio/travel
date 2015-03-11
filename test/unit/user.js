@@ -105,7 +105,7 @@ describe('User Model', function() {
     it('should create a user token', function(done) {
       var user = new User({facebook:'1419476940', displayName: 'Jose Zamudio', photoUrl: 'https://graph.facebook.com/1419476940/picture?type=large'});
       var token = user.token();
-      expect(token).to.be.ok;
+      expect(token).to.have.length(172);
       done();
     });
   });
