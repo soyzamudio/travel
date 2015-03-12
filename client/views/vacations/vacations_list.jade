@@ -1,3 +1,5 @@
 h1 List
-ul
-  li(ng-repeat='vacation in vacations'): a(ui-sref='vacations.show({vacationId:vacation._id})') {{vacation.title}}
+
+.row
+  ul
+    li(ng-repeat='vacation in vacations'): a(ui-sref='vacations.show({vacationId:vacation._id})') {{vacation.title}}

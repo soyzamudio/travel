@@ -1,59 +1,70 @@
-.container
-  .row
-    .col-md-12
-  h1 Show
+.row
+  .col-md-12
+h3 Your Selection
 
-  ul
-    li {{vacation.title}}
-  
-  button.btn.btn-info(ng-click='findFlights()') Find Flights
-  
-.container(ng-if='itineraries')
-  .row
-    .col-md-12
-      div(dir-paginate='itinerary in itineraries | filter:q | itemsPerPage: pageSize', current-page='currentPage')
-        h4 Departure ({{moment.duration(itinerary.AirItinerary.OriginDestinationOptions.OriginDestinationOption[0].ElapsedTime, 'hours')}})
-        table.table.table-hover
-          thead
-            tr
-              th From
-              th Departure
-              th To
-              th Arrival
-              th Airline
-              th Flight
-          tbody(ng-repeat='flight in itinerary.AirItinerary.OriginDestinationOptions.OriginDestinationOption[0].FlightSegment')
-            tr
-              td {{flight.DepartureAirport.LocationCode}}
-              td {{flight.DepartureDateTime | date: 'h:mma'}}
-              td {{flight.ArrivalAirport.LocationCode}}
-              td {{flight.ArrivalDateTime | date: 'h:mma'}}
-              td {{flight.OperatingAirline.Code}}
-              td {{flight.OperatingAirline.FlightNumber}}
-        h4 Return
-        table.table.table-hover
-          thead
-            tr
-              th From
-              th Departure
-              th To
-              th Arrival
-              th Airline
-              th Flight
-          tbody(ng-repeat='flight in itinerary.AirItinerary.OriginDestinationOptions.OriginDestinationOption[1].FlightSegment')
-            tr
-              td {{flight.DepartureAirport.LocationCode}}
-              td {{flight.DepartureDateTime | date: 'h:mma'}}
-              td {{flight.ArrivalAirport.LocationCode}}
-              td {{flight.ArrivalDateTime | date: 'h:mma'}}
-              td {{flight.OperatingAirline.Code}}
-              td {{flight.OperatingAirline.FlightNumber}}
-        h5.text-right Subtotal: ${{itinerary.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.BaseFare.Amount}}
-        h5.text-right(style='margin-bottom: 2px; font-size: .8em; color: #9d9d9d', ng-repeat='tax in itinerary.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.Taxes.Tax') Tax: ${{tax.Amount}}
-        h5.text-right(style='margin-bottom: 2px;') Total Taxes: ${{itinerary.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.Taxes.TotalTax.Amount}}
-        h3.text-right(style='margin-bottom: 25px;')  Total: ${{itinerary.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.TotalFare.Amount}}
+table.table.table-hover
+  thead
+    tr
+      th Departure
+      th Date
+      th Return
+      th Date
+  tbody
+    tr
+      td {{vacation.departureAirport}}
+      td {{vacation.departureDate | date}}
+      td {{vacation.arrivalAirport}}
+      td {{vacation.arrivalDate | date}}
       
-  .row
-    .other-controller
-      .text-center
-        dir-pagination-controls(boundary-links='true', template-url='/vendor/angular-utils-pagination/dirPagination.tpl.html')
+  li {{vacation.title}}
+
+button.btn.btn-info(ng-click='findFlights()') Find Flights
+
+.row(ng-if='itineraries', style='margin-top: 50px;')
+  .col-md-12
+    div(dir-paginate='itinerary in itineraries | filter:q | itemsPerPage: pageSize', current-page='currentPage')
+      h4 Departure ({{moment.duration(itinerary.AirItinerary.OriginDestinationOptions.OriginDestinationOption[0].ElapsedTime, 'hours')}})
+      table.table.table-hover
+        thead
+          tr
+            th From
+            th Departure
+            th To
+            th Arrival
+            th Airline
+            th Flight
+        tbody(ng-repeat='flight in itinerary.AirItinerary.OriginDestinationOptions.OriginDestinationOption[0].FlightSegment')
+          tr
+            td {{flight.DepartureAirport.LocationCode}}
+            td {{flight.DepartureDateTime | date: 'h:mma'}}
+            td {{flight.ArrivalAirport.LocationCode}}
+            td {{flight.ArrivalDateTime | date: 'h:mma'}}
+            td {{flight.OperatingAirline.Code}}
+            td {{flight.OperatingAirline.FlightNumber}}
+      h4 Return
+      table.table.table-hover
+        thead
+          tr
+            th From
+            th Departure
+            th To
+            th Arrival
+            th Airline
+            th Flight
+        tbody(ng-repeat='flight in itinerary.AirItinerary.OriginDestinationOptions.OriginDestinationOption[1].FlightSegment')
+          tr
+            td {{flight.DepartureAirport.LocationCode}}
+            td {{flight.DepartureDateTime | date: 'h:mma'}}
+            td {{flight.ArrivalAirport.LocationCode}}
+            td {{flight.ArrivalDateTime | date: 'h:mma'}}
+            td {{flight.OperatingAirline.Code}}
+            td {{flight.OperatingAirline.FlightNumber}}
+      h5.text-right Subtotal: {{itinerary.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.BaseFare.Amount | currency}}
+      h5.text-right(style='margin-bottom: 2px; font-size: .8em; color: #9d9d9d', ng-repeat='tax in itinerary.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.Taxes.Tax') Tax: {{tax.Amount | currency}}
+      h5.text-right(style='margin-bottom: 2px;') Total Taxes: {{itinerary.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.Taxes.TotalTax.Amount | currency}}
+      h3.text-right(style='margin-bottom: 25px;')  Total: {{itinerary.AirItineraryPricingInfo.PTC_FareBreakdowns.PTC_FareBreakdown.PassengerFare.TotalFare.Amount | currency}}
+    
+.row
+  .other-controller
+    .text-center
+      dir-pagination-controls(boundary-links='true', template-url='/vendor/angular-utils-pagination/dirPagination.tpl.html')
