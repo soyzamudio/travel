@@ -16,6 +16,7 @@
     "bootstrap": "~3.3.2",
     "font-awesome": "~4.3.0",
     "satellizer": "~0.9.3",
-    "bootstrap-social": "~4.8.0"
+    "bootstrap-social": "~4.8.0",
+    "angular-utils-pagination": "~0.5.1"
   }
 }

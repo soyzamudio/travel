@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angular-prototype', ['ui.router', 'ngMessages', 'satellizer'])
+angular.module('angular-prototype', ['ui.router', 'ngMessages', 'satellizer', 'angularUtils.directives.dirPagination'])
   .config(['$stateProvider', '$urlRouterProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $authProvider){
     $urlRouterProvider.otherwise('/');
 
