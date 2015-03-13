@@ -7,5 +7,9 @@ angular.module('angular-prototype')
       return $http.post('/trips/flights', vacation);
     }
 
-    return {flights:flights};
+    function purchaseFlights(vacationId, info) {
+      return $http.post(`/vacations/${vacationId}/flights/purchase`, info);
+    }
+
+    return {flights:flights, purchaseFlights:purchaseFlights};
   }]);

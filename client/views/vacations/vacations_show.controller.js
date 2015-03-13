@@ -9,6 +9,12 @@ angular.module('angular-prototype')
     Vacation.show($state.params.vacationId)
     .then((response) => {
       $scope.vacation = response.data.vacation;
+      console.log($scope.vacation);
+    });
+
+    $scope.$on('flight-purchase', (event, vacation) => {
+      console.log('show.controller.js | this is the vacation:', vacation);
+      $scope.vacation = vacation;
     });
 
     $scope.findFlights = function() {

@@ -13,6 +13,7 @@ let User;
 let userSchema = mongoose.Schema({
   email:       {type: String, lowercase: true},
   password:    {type: String, select: false },
+  phone:       String,
   displayName: String,
   photoUrl:    String,
   github:      String,

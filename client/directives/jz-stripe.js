@@ -1,3 +1,5 @@
+/* global StripeCheckout:true */
+
 'use strict';
 
 angular.module('angular-prototype')
@@ -6,10 +8,23 @@ angular.module('angular-prototype')
 
   o.restrict = 'A';
   o.templateUrl = '/directives/jz-stripe.html';
-  o.scope = {};
+  o.scope = {
+    vacation: '=',
+    cost:       '=',
+    description:      '=',
+    itinerary:  '='
+  };
   o.link = function(scope, element, attrs) {};
-  o.controller = ['$scope', ($scope) => {
-    $scope.x = 3;
+  o.controller = ['$rootScope', '$scope', ($rootScope, $scope) => {
+    $scope.purchase = function() {
+      var info = {
+        vacation: $scope.vacation,
+        cost: $scope.cost * 100,
+        description: $scope.description,
+        itinerary: $scope.itinerary
+      };
+      $rootScope.$broadcast('purchase', info);
+    };
   }];
 
   return o;

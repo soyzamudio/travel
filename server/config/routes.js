@@ -3,9 +3,10 @@
 module.exports = [
   {method: 'get', path: '/{param*}', config: require('../routes/general/static')},
 
+  {method: 'post', path: '/profile', config: require('../routes/users/profile')},
+
   {method: 'post', path: '/auth/signup', config: require('../routes/users/register')},
   {method: 'post', path: '/auth/login', config: require('../routes/users/login')},
-
   {method: 'post', path: '/auth/github', config: require('../routes/users/github')},
   {method: 'post', path: '/auth/facebook', config: require('../routes/users/facebook')},
   {method: 'post', path: '/auth/linkedin', config: require('../routes/users/linkedin')},
@@ -14,6 +15,7 @@ module.exports = [
   {method: 'get', path: '/vacations', config: require('../routes/vacations/index')},
   {method: 'post', path: '/vacations', config: require('../routes/vacations/create')},
   {method: 'get', path: '/vacations/{vacationId}', config: require('../routes/vacations/show')},
+  {method: 'post', path: '/vacations/{vacationId}/flights/purchase', config: require('../routes/vacations/purchase-flight')},
 
-  {method: 'post', path: '/trips/flights', config: require('../routes/trips/flights')}
+  {method: 'post', path: '/trips/flights', config: require('../routes/trips/flights')},
 ];

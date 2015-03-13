@@ -1,0 +1,10 @@
+.container
+ .row
+  h1 Profile
+    
+  .form-group
+    input.form-control(type='text', value='{{user.displayName}}', ng-model='user.displayName', placeholder='Name')
+  .form-group(ng-if='!user.phoneNumber')
+    input.form-control(type='text', value='{{user.phone}}', ng-model='user.phone', placeholder='Phone Number', required)
+  .form-group
+    button.btn.btn-info(ng-click='edit(user)') Edit User

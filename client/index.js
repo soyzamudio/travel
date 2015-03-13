@@ -15,7 +15,8 @@ angular.module('angular-prototype', ['ui.router', 'ngMessages', 'satellizer', 'a
       .state('vacations.show', {url: '/{vacationId:[0-9a-f]{24}}', templateUrl: '/views/vacations/vacations_show.html', controller:'VacationsShowCtrl'})
 
       .state('register', {url:'/register', templateUrl:'/views/users/users.html', controller:'UsersCtrl'})
-      .state('login', {url:'/login', templateUrl:'/views/users/users.html', controller:'UsersCtrl'});
+      .state('login', {url:'/login', templateUrl:'/views/users/users.html', controller:'UsersCtrl'})
+      .state('profile', {url: '/profile', templateUrl: '/views/users/profile.html', controller: 'ProfileCtrl'});
 
     $authProvider.github({ clientId: '0a24748ef0db0e815151' });
     $authProvider.facebook({ clientId: '469311433222452' });

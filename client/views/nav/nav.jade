@@ -19,4 +19,4 @@ nav.navbar.navbar-default(ng-controller='NavCtrl')
         li: a(ui-sref='contact'): i.fa.fa-at &nbsp; Contact
         li: a(ui-sref='vacations.list'): i.fa.fa-plane &nbsp; Vacations
         li: a(ui-sref='vacations.new'): i.fa.fa-plane &nbsp; New Vacation
-        li: a(href='#') {{user.displayName || user.email}}
+        li: a(ui-sref='profile') {{user.displayName || user.email}}
